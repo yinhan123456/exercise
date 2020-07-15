@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+      }
+      .scene {
+          display: block;
+          margin: 0 auto;
+          width: 100vmin;
+          height: 100vmin;
+          background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <svg viewbox='-500 -500 1000 1000' class='scene'>
+      <g class='particles'></g>
+    </svg>
+    <script>
+var max = Math.max,
+min = Math.min,
+round = Math.round,
+abs = Math.abs,
+pow = Math.pow,
+sqrt = Math.sqrt,
+PI = Math.PI,
+sin = Math.sin,
+cos = Math.cos,
+
+NS_URI = 'http://www.w3.org/2000/svg',
+XLink_NS = 'http://www.w3.org/1999/xlink',
+
+scene = document.querySelector('.scene'),
+g_particles = scene.querySelector('.particles'),
+frag = document.createDocumentFragment(),
+
+vb = scene.getAttribute('viewBox').split(' '),
+vb_w = ~~vb[2],
+vb_h = ~~vb[3],
+vb_x = ~~vb[0],
+vb_y = ~~vb[1],
+
+particles = [],
+n_particles = 16,
+
+u = 50,
+t = 0;
+
+var rand = function(max, min) {
+    var b = (!max && max !== 0) ? 1 : max,
+        a = min || 0;
+
+    return a + (b - a) * Math.random();
+};
+
+Node.prototype.setAttrs = function(attr_obj) {
+    for (var prop in attr_obj) {
+        this.setAttribute(prop, attr_obj[prop]);
+    }
+};
+
+var Particle = function(r, p, m, v) {
+    // 方向
+    var a = PI * rand(2),
+    // 速度
+        va = rand(10, 3) * u;
+
+    // 半径
+    this.r = r || round(rand(13, 4));
+    // 位置
+    this.p = p || {
+        'x': round(rand(vb_w - 4 * this.r) - vb_w / 2),
+        'y': round(rand(vb_h - 4 * this.r) - vb_h / 2)
+    };
+    // ？
+    this.m = m || rand(10, 1);
+    // 速度
+    this.v = v || {
+        'x': va * cos(a),
+        'y': va * sin(a)
+    }
+
+    this.el = document.createElementNS(NS_URI, 'circle');
+    this.el.setAttrs({
+        'r': this.r,
+        'cx': this.p.x,
+        'cy': this.p.y,
+        'fill': 'hsl(' + round(rand(360)) + ',100%,50%)'
+    })
+
+    // 求半径
+    this.d = function(b) {
+        return sqrt(pow(this.p.x - b.p.x, 2) + pow(this.p.y - b.p.y, 2));
+    }
+
+    // x轴距离
+    this.dx = function(x) {
+        return abs(this.p.x - x);
+    }
+
+    // y轴距离
+    this.dy = function(y) {
+        return abs(this.p.y - y);
+    }
+
+    this.hitsParticle = function(b) {
+        return this.d(b) <= 1.5 * (this.r + b.r);
+    }
+
+    this.hitsWallX = function() {
+        return (this.dx(vb_x) <= 2 * this.r) || (this.dx(vb_w + vb_x) <= 2 * this.r);
+    };
+
+    this.hitsWallY = function() {
+        return (this.dy(vb_y) <= 2 * this.r) || (this.dy(vb_h + vb_y) <= 2 * this.r);
+    };
+};
+
+var init = function() {
+    particles = [];
+    g_particles.innerHTML = '';
+
+    for (var i = 0; i < n_particles; i++) {
+        particles.push(new Particle());
+        frag.appendChild(particles[i].el);
+    }
+
+    g_particles.appendChild(frag);
+};
+var move = function() {
+    for (var i = 0; i < n_particles; i++) {
+        particles[i].p.x += round(particles[i].v.x / 60);
+        particles[i].p.y += round(particles[i].v.y / 60);
+        particles[i].el.setAttrs({
+            'cx': particles[i].p.x,
+            'cy': particles[i].p.y
+        });
+
+        for (var j = 0; j < i; j++) {
+            if (particles[i].hitsParticle(particles[j])) {
+                particles[i].v.x = (particles[i].v.x) ? -particles[i].v.x : particles[j].v.x;
+                particles[i].v.y = (particles[i].v.y) ? -particles[i].v.y : particles[j].v.y;
+
+                particles[j].v.x = (particles[j].v.x) ? -particles[j].v.x : particles[i].v.x;
+                particles[j].v.y = (particles[j].v.y) ? -particles[j].v.y : particles[i].v.y;
+            }
+        }
+
+        if (particles[i].hitsWallX()) {
+            particles[i].v.x *= -1;
+        }
+        if (particles[i].hitsWallY()) {
+            particles[i].v.y *= -1;
+        }
+    }
+    t++;
+
+    requestAnimationFrame(move);
+};
+
+init();
+move();
+    </script>
+  </body>
+</html>

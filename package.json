@@ -1,0 +1,57 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.js",
+  "dependencies": {
+    "css-loader": "^3.6.0",
+    "echarts": "^4.8.0",
+    "iview": "^3.5.4",
+    "style-loader": "^1.2.1",
+    "vue": "^2.6.11",
+    "vuex": "^3.5.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "autoprefixer": "^9.8.4",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.0.2",
+    "cssnano": "^4.1.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^3.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:basic": "webpack --config ./webpack/0.basic_usage/webpack.config.js",
+    "build:html": "webpack --config ./webpack/1.include_html/webpack.config.js",
+    "build:uglifyjs": "webpack --config ./webpack/2.uglify_js/webpack.config.js",
+    "build:babeljs": "webpack --config ./webpack/3.babel_js/webpack.config.js",
+    "build:splitjs": "webpack --config ./webpack/4.split_js/webpack.config.js",
+    "build:style": "webpack --config ./webpack/5.style/webpack.config.js",
+    "build:file": "webpack --config ./webpack/6.file/webpack.config.js",
+    "build:defingplu": "webpack --config ./webpack/7.define_plugin/webpack.config.js",
+    "start:dev": "webpack-dev-server --progress --color --config ./webpack/8.dev_server/webpack.config.js",
+    "build:dev": "webpack --progress --color --config ./webpack/8.dev_server/webpack.config.js",
+    "build:dll": "webpack --config ./webpack/webpack.dll.config.js",
+    "dev": "webpack-dev-server --config ./webpack/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yinhan123456/exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yinhan123456/exercise/issues"
+  },
+  "homepage": "https://github.com/yinhan123456/exercise#readme"
+}
