@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="vv"></div>
+<script>
+  Vue.component('grandchild', {
+    template: '<div>grandChild---</div>',
+    mounted() {
+      setTimeout(() => {
+        this.$emit('grandchild')
+      }, 3000)
+    }
+  })
+  Vue.component('child', {
+    template: '<div>child---<grandchild v-on="$listeners"></grandchild></div>',
+    mounted() {
+      setTimeout(()=> {
+        this.$emit('child')
+      }, 2000)
+    }
+  })
+  Vue.component('parent', {
+    template: '<div>parent<child @child="f" @grandchild="g"></child></div>',
+    methods: {
+      f() {
+        console.log('child')
+      },
+      g() {
+        console.log('grandchild')
+      }
+    }
+  })
+
+  new Vue({
+    el: '#vv',
+    template: '<parent></parent>'
+  })
+
+
+</script>
+</body>
+</html>

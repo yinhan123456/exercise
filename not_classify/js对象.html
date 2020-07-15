@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  window.onload = function () {
+    const obj1 = { a: 'aaa', b: 'bbb' }
+    const obj2 = Object.create(obj1)
+
+    console.log('obj1', obj1)
+    console.log('obj2', obj2)
+
+
+    // for in 包含原型链中的属性
+    let str = ''
+    for (let key in obj2) {
+      str = str + key + ' '
+    }
+
+    console.log(str)
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="vv"></div>
+<script>
+  Vue.component('grandChild', {
+    template: '<div>grandChild---{{c}}</div>',
+    props: {c: String}
+  })
+  Vue.component('child', {
+    template: '<div>child---{{a}}{{b}}<grandChild v-bind="$attrs"></grandChild></div>',
+    props: {a: String, b: String}
+  })
+  Vue.component('parent', {
+    template: '<div>parent<child a="aaa" b="bbb" c="ddd"></child></div>'
+  })
+
+  new Vue({
+    el: '#vv',
+    template: '<parent></parent>'
+  })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<input id="u1" type="file" onchange="upload1()" />
+<p>-----------------------------------------------------</p>
+<input id="u2" type="file" onchange="upload2()" />
+<p>-----------------------------------------------------</p>
+<input id="u3" type="file" onchange="upload3()" />
+<p>-----------------------------------------------------</p>
+<img id="img1" style="width: 300px;" />
+<p>-----------------------------------------------------</p>
+<img id="img2" style="width: 300px;" />
+<p>-----------------------------------------------------</p>
+<video id="video1" style="width:300px;" controls></video>
+
+<script>
+  function upload1() {
+    console.log(event.target.files[0])
+    var img = document.querySelector('#img1')
+    var reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+    reader.onload = function() {
+      console.log('reader.onload')
+      img.src = reader.result
+      console.log(reader.result)
+    }
+  }
+
+  // readAsText
+  // readAsDataURL
+  // readAsArrayBuffer
+  // readAsBinaryString
+
+  function upload2() {
+    console.log(event.target.files[0])
+    var img = document.getElementById('img2')
+
+    var url = URL.createObjectURL(event.target.files[0])
+    img.src = url
+    // setTimeout(() => {
+    //   URL.revokeObjectURL(url)
+    //   console.log(url)
+    // }, 5000)
+  }
+
+  function upload3() {
+    const reader = new FileReader()
+    const url = URL.createObjectURL(event.target.files[0])
+    const vid = document.querySelector('#video1')
+    vid.src = url
+
+    setTimeout(() => {
+      // URL.revokeObjectURL(url)
+      console.log(url)
+    }, 5000)
+  }
+</script>
+</body>
+</html>

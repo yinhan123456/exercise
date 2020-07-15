@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script>
+    setTimeout(() => {
+      console.log('-----setTimeout--------')
+      console.log(1)
+    }, 0)
+
+    Promise.resolve().then(() => {
+      console.log('-----promise--------')
+      console.log(2)
+    })
+
+    console.log('-----main thread--------')
+    console.log(3)
+  </script>
+</head>
+<body>
+
+</body>
+</html>

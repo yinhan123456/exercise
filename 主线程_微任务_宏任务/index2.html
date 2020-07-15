@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .old {
+      /*width: 50px;*/
+      /*height: 20px;*/
+      margin: 2px;
+      background-color: darkseagreen;
+      display: inline-block;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      const body = document.body
+
+      let n = 10000
+      for (let i = 0; i < n; i++) {
+        let el = document.createElement('div')
+        el.id = i
+        el.innerText = '*'
+        el.classList.add('old')
+        body.append(el)
+      }
+      /*
+      * DOM的渲染时刻
+      * 每次执行完宏任务队列中的一个任务后渲染DOM
+      * */
+
+      // 连续setTimeout中操作DOM，浏览器不断在JS引擎线程和GUI渲染线程之间切换，效率低
+      for (let i = 0; i < n; i++) {
+        setTimeout(function() {
+          let el = document.getElementById('' + i)
+          el.style.backgroundColor = 'green'
+        }, 0)
+      }
+
+      // 连续的Promise任务，JS引擎线程执行完所有Promise后再渲染
+      setTimeout(function() {
+        for (let i = 0; i < n; i++) {
+          Promise.resolve().then(function() {
+            let el = document.getElementById('' + i)
+            el.style.backgroundColor = 'blue'
+          })
+        }
+      }, 10000)
+    }
+  </script>
+</head>
+<body>
+
+</body>
+</html>

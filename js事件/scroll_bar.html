@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #outter {
+      margin: 50px auto;
+      width: 700px;
+      height: 700px;
+      background: darkseagreen;
+      border: 1px solid black;
+      box-sizing: border-box;
+      overflow: hidden;
+      padding: 50px;
+      position: relative;
+    }
+    .inner {
+      width: 500px;
+      height: 300px;
+      background: olive;
+    }
+  </style>
+</head>
+<body>
+<div id="outter">
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+  <hr />
+  <div class="inner"></div>
+</div>
+
+<script>
+  window.onload = function () {
+    addScrollBar(outter)
+  }
+
+  function addScrollBar (container) {
+    var contentMovePx = 200
+    var scrollHeight = container.scrollHeight
+    var clientHeight = container.clientHeight
+    console.log(scrollHeight, clientHeight)
+
+    if (scrollHeight === clientHeight) return
+    container.style.position = 'relative'
+    container.style.overflow = 'hidden'
+
+    var barHeight = parseInt(clientHeight * clientHeight / scrollHeight)
+    var barMovePx = contentMovePx * (clientHeight - barHeight) / (scrollHeight - clientHeight)
+
+    const bar = document.createElement('div')
+    bar.style.cssText = '' +
+      'width: 10px; ' +
+      'height: ' + barHeight + 'px;' +
+      'background: purple; ' +
+      'position: absolute; ' +
+      'right: 0;' +
+      'top: 0;' +
+      'box-sizing: border-box;' +
+      'border-radius: 5px;'
+    container.append(bar)
+
+    var n = 0
+    container.onmousewheel = function (e) {
+      e.stopPropagation()
+      var delta = e.wheelDelta
+      var scrollTop = container.scrollTop + (delta < 0 ? contentMovePx : -contentMovePx)
+
+      if (scrollTop > scrollHeight - clientHeight) {
+        container.scrollTop = scrollHeight - clientHeight
+        bar.style.top = container.scrollTop + clientHeight - barHeight + 'px'
+        n = parseInt((clientHeight - barHeight) / barMovePx) + 1
+      } else if (scrollTop < 0) {
+        container.scrollTop = 0
+        bar.style.top = 0
+        n = 0
+      } else {
+        container.scrollTop = scrollTop
+
+        n = delta > 0 ? n - 1 : n + 1
+        bar.style.top =
+          container.scrollTop + Math.min(barMovePx * n, clientHeight - barHeight) + 'px'
+      }
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="display" style="background:black;color: white;width:400px;"></div>
+<script>
+  function appendP (str, el) {
+    var p = document.createElement('p')
+    p.innerText = str
+    el.append(p)
+  }
+
+  function refresh () {
+    display.innerHTML = ''
+    appendP(`window.innerWidth: ${window.innerWidth}`, display)
+    appendP(`window.outerWidth: ${window.outerWidth}`, display)
+    appendP(`window.devicePixelRatio: ${window.devicePixelRatio}`, display)
+    appendP(`screen.width: ${screen.width}`, display)
+    appendP(`screen.availWidth: ${screen.availWidth}`, display)
+  }
+
+  window.onload = function() {
+    setInterval(refresh, 1000)
+  }
+</script>
+
+</body>
+</html>

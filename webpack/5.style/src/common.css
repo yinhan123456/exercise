@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: darkseagreen;
+  display: flex;
+  transition: all 1s;
+}

@@ -1,0 +1,21 @@
+<html>
+<head></head>
+<body>
+<p>abcdefgkkkkkk</p>
+<div>
+  <p id="selected"></p>
+</div>
+<script>
+
+  window.onmouseup = function (e) {
+    selected.innerHTML = window.getSelection()
+
+    setTimeout(function() {
+      window.getSelection().removeAllRanges()
+      selected.innerHTML = window.getSelection()
+    }, 1000)
+  }
+
+</script>
+</body>
+</html>

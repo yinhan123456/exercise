@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blob/ArrayBuffer</title>
+  <style>
+    #file-box {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<div id="file-box"></div>
+<p>Blob是支持文件操作的二进制对象</p>
+<p>ArrayBuffer是二进制缓冲区</p>
+<p>Buffer是Nodejs的二进制缓冲区</p>
+<p>File是文件对象，继承了Blob的属性</p>
+<p>FileReader</p>
+
+<hr />
+<h3>File</h3>
+<p>浏览器获取File对象方式</p>
+<img src="./File.png" height="200" />
+<p>input元素type为file时具有的属性name，accept，multiple，capture，required</p>
+<p>capture属性：camera；camcorder，microphone</p>
+<p>加载txt文件<input type="file" id="file-txt" accept=".txt" onchange="getFile(this)" /></p>
+<p>加载图片<input type="file" id="file-image" accept="image/*" onchange="getFile(this)" /></p>
+<p>摄像头拍照<input type="file" id="file-camera-image" capture="camera" accept="image/*" onchange="getFile(this)" /></p>
+<p>摄像头拍摄<input type="file" id="file-camera-video" capture="camcorder" accept="video/*" onchange="getFile(this)" /></p>
+
+<script src="./index.js"></script>
+</body>
+</html>

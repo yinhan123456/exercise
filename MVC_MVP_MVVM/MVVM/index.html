@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="./vm.js"></script>
+</head>
+<body>
+<div id="demo">
+  <p>名字</p>
+  <p>你的名字是{{name}}</p>
+  <p>年龄</p>
+  <p>你的年龄是{{age}}</p>
+  <input v-model="abc" type="text">
+</div>
+<script>
+  window.onload = function() {
+    let v = new VM({
+      data: {
+        age: 100,
+        name: '小米',
+        abc: 'good'
+      },
+      el: '#demo'
+    })
+
+    setTimeout(() => {
+      v.data.age = 200
+      v.data.name = 'xiaohong'
+    }, 3000)
+  }
+</script>
+</body>
+</html>

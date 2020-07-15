@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body style="margin: 0;padding: 0;">
+<div id="outter"
+     style="
+     overflow: auto;
+     width: 200px;
+     height: 450px;
+     padding: 100px;
+     margin: 50px;
+     border: 10px black solid;
+     background: olivedrab;"
+>
+  <div style="
+  position: absolute;
+  left: 159px;
+  top: 159px;
+  border: 1px dotted blueviolet;
+  width: 200px;
+  height: 450px;"></div>
+  <div id="inner"
+       style="
+       width: 200px;
+       height: 100px;
+       padding: 100px;
+       margin: 50px;
+       border: 10px black solid;
+       background: cornflowerblue;"></div>
+</div>
+
+<div style="width: 400px; padding: 20px; position: absolute; top: 0; right: 0;background: black; color: white;">
+  <div>
+    <p>width: 200px;</p>
+    <p>padding: 100px;</p>
+    <p>margin: 50px;</p>
+    <p>border: 10px;</p>
+  </div>
+  <hr />
+  <div id="dataDisplay"></div>
+</div>
+
+<script>
+  window.onload = function () {
+
+    var innerhtml = `<p>outter width: ${outter.style.width}</p>`
+    innerhtml += `<p>outter clientWidth: ${outter.clientWidth}</p>`
+    innerhtml += `<p>outter OffsetWidth: ${outter.offsetWidth}</p>`
+    innerhtml += `<p>outter scrollWidth: ${outter.scrollWidth}</p>`
+    innerhtml += '<hr />'
+    innerhtml += `<p>outter scrollLeft: <span id="sl">---</span></p>`
+    innerhtml += '<hr />'
+    innerhtml += `<p>inner clientLeft (边框宽度): <span id="cl">---</span></p>`
+    innerhtml += `<p>inner offsetLeft: <span id="ol">---</span></p>`
+    innerhtml += `<p>inner scrollLeft: <span id="sl2">---</span></p>`
+
+    dataDisplay.innerHTML = innerhtml
+
+    setInterval(function () {
+      sl.innerText  = parseInt(outter.scrollLeft)
+
+      cl.innerText  = parseInt(inner.clientLeft)
+      ol.innerText  = parseInt(inner.offsetLeft)
+      sl2.innerText = parseInt(inner.scrollLeft)
+    }, 1000)
+  }
+</script>
+</body>
+</html>

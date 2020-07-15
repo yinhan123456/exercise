@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+
+<script>
+  Vue.component('c1', {
+    data() {
+      return {num: 1}
+    },
+    template: `<div>c{{this.num}}</div>`,
+    mounted() {
+      this.$parent.$on('add', (params) => {
+        console.log(params)
+        this.num += 1
+        console.log(this.num)
+      })
+    }
+  })
+
+  Vue.component('c2', {
+    template: '<div @click="add">c2</div>',
+    mounted() {
+    },
+    methods: {
+      add() {
+        this.$parent.$emit('add', 'params')
+      }
+    }
+  })
+
+  // this.$parent.$off('add')
+
+  new Vue({
+    el: '#demo',
+    template: '<div><p>nihao</p><c1></c1><c2></c2></div>'
+  })
+</script>
+
+</body>
+</html>
